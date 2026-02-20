@@ -1,0 +1,3 @@
+pub const PUMP_FUN_PROGRAM: &str = "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P";
+pub const PUMP_FUN_AMM: &str = "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA";
+pub const MAX_PRIORITY_FEE_MICRO_LAMPORTS: u64 = 100_000;

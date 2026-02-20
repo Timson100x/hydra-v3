@@ -1,0 +1,17 @@
+[package]
+name = "hydra-monitor"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hydra-core = { path = "../hydra-core" }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+reqwest = { workspace = true }
+prometheus-client = { workspace = true }
+axum = { workspace = true }
+csv = { workspace = true }
+chrono = { workspace = true }
