@@ -1,4 +1,19 @@
+# Rust build artifacts
 /target/
+**/*.rs.bk
+
+# Environment files – NEVER commit
 .env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+
+# Project-specific
 wallet.json
 logs/
+
+# IDE files
+.vscode/
+.idea/
