@@ -1,0 +1,12 @@
+[package]
+name = "hydra-executor"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hydra-core = { path = "../hydra-core" }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+serde = { workspace = true }
+tokio = { workspace = true }
+thiserror = { workspace = true }
