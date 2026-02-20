@@ -52,7 +52,10 @@ impl PhaseTracker {
                 Ok(&self.current_phase)
             }
             None => {
-                bail!("Trade {} is already in final phase (TradeClosed)", self.trade_id);
+                bail!(
+                    "Trade {} is already in final phase (TradeClosed)",
+                    self.trade_id
+                );
             }
         }
     }

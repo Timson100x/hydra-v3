@@ -30,9 +30,17 @@ impl DailyLimits {
         self.maybe_reset();
         self.realized_pnl_sol += pnl_sol;
         if pnl_sol < 0.0 {
-            warn!(pnl_sol, daily_pnl = self.realized_pnl_sol, "Trade loss recorded");
+            warn!(
+                pnl_sol,
+                daily_pnl = self.realized_pnl_sol,
+                "Trade loss recorded"
+            );
         } else {
-            info!(pnl_sol, daily_pnl = self.realized_pnl_sol, "Trade profit recorded");
+            info!(
+                pnl_sol,
+                daily_pnl = self.realized_pnl_sol,
+                "Trade profit recorded"
+            );
         }
         Ok(())
     }

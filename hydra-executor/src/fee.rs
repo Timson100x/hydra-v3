@@ -19,7 +19,11 @@ impl FeeCalculator {
     pub fn compute_fee(&self) -> Result<u64> {
         let fee = (self.base_fee as f64 * self.p75_multiplier) as u64;
         let capped = fee.min(MAX_PRIORITY_FEE_MICRO_LAMPORTS);
-        info!(computed_fee = fee, capped_fee = capped, "Priority fee computed");
+        info!(
+            computed_fee = fee,
+            capped_fee = capped,
+            "Priority fee computed"
+        );
         Ok(capped)
     }
 }

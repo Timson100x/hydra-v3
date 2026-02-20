@@ -22,10 +22,16 @@ impl CircuitBreaker {
 
     pub fn record_loss(&mut self) -> Result<()> {
         self.consecutive_losses += 1;
-        warn!(consecutive_losses = self.consecutive_losses, "Loss recorded");
+        warn!(
+            consecutive_losses = self.consecutive_losses,
+            "Loss recorded"
+        );
         if self.consecutive_losses >= self.max_consecutive_losses {
             self.tripped = true;
-            warn!("Circuit breaker tripped after {} consecutive losses", self.consecutive_losses);
+            warn!(
+                "Circuit breaker tripped after {} consecutive losses",
+                self.consecutive_losses
+            );
         }
         Ok(())
     }
