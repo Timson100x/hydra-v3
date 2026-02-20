@@ -47,3 +47,47 @@ impl Phase {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_phase_progression_is_sequential() {
+        let mut phase = Phase::SignalReceived;
+        let expected_numbers = [1u8, 2, 3, 4, 5, 6, 7, 8];
+        for &n in &expected_numbers {
+            assert_eq!(phase.number(), n);
+            if let Some(next) = phase.next() {
+                phase = next;
+            }
+        }
+    }
+
+    #[test]
+    fn test_trade_closed_has_no_next() {
+        assert!(Phase::TradeClosed.next().is_none());
+    }
+
+    #[test]
+    fn test_all_phases_have_numbers_1_to_8() {
+        let phases = [
+            Phase::SignalReceived,
+            Phase::AiScoring,
+            Phase::StrategyFiltering,
+            Phase::RiskCheck,
+            Phase::OrderSubmitted,
+            Phase::PositionOpen,
+            Phase::Monitoring,
+            Phase::TradeClosed,
+        ];
+        let numbers: Vec<u8> = phases.iter().map(|p| p.number()).collect();
+        assert_eq!(numbers, vec![1, 2, 3, 4, 5, 6, 7, 8]);
+    }
+
+    #[test]
+    fn test_phase_equality() {
+        assert_eq!(Phase::SignalReceived, Phase::SignalReceived);
+        assert_ne!(Phase::SignalReceived, Phase::AiScoring);
+    }
+}

@@ -1,4 +1,4 @@
-use anyhow::{bail, Result};
+use crate::error::HydraRiskError;
 use tracing::{info, warn};
 
 pub struct CircuitBreaker {
@@ -20,7 +20,7 @@ impl CircuitBreaker {
         self.tripped
     }
 
-    pub fn record_loss(&mut self) -> Result<()> {
+    pub fn record_loss(&mut self) {
         self.consecutive_losses += 1;
         warn!(
             consecutive_losses = self.consecutive_losses,
@@ -33,7 +33,6 @@ impl CircuitBreaker {
                 self.consecutive_losses
             );
         }
-        Ok(())
     }
 
     pub fn record_win(&mut self) {
@@ -41,9 +40,11 @@ impl CircuitBreaker {
         info!("Win recorded, consecutive losses reset");
     }
 
-    pub fn check(&self) -> Result<()> {
+    pub fn check(&self) -> Result<(), HydraRiskError> {
         if self.tripped {
-            bail!("Circuit breaker is tripped, trading halted");
+            return Err(HydraRiskError::CircuitBreakerTripped {
+                consecutive_losses: self.consecutive_losses,
+            });
         }
         Ok(())
     }
@@ -58,5 +59,51 @@ impl CircuitBreaker {
 impl Default for CircuitBreaker {
     fn default() -> Self {
         Self::new(5)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_circuit_breaker_not_tripped_initially() {
+        let cb = CircuitBreaker::new(4);
+        assert!(!cb.is_tripped());
+        assert!(cb.check().is_ok());
+    }
+
+    #[test]
+    fn test_circuit_breaker_trips_after_max_losses() {
+        let mut cb = CircuitBreaker::new(4);
+        for _ in 0..4 {
+            cb.record_loss();
+        }
+        assert!(cb.is_tripped());
+        assert!(matches!(
+            cb.check(),
+            Err(HydraRiskError::CircuitBreakerTripped { .. })
+        ));
+    }
+
+    #[test]
+    fn test_circuit_breaker_win_resets_losses() {
+        let mut cb = CircuitBreaker::new(4);
+        cb.record_loss();
+        cb.record_loss();
+        cb.record_win();
+        assert!(!cb.is_tripped());
+        assert!(cb.check().is_ok());
+    }
+
+    #[test]
+    fn test_circuit_breaker_reset() {
+        let mut cb = CircuitBreaker::new(2);
+        cb.record_loss();
+        cb.record_loss();
+        assert!(cb.is_tripped());
+        cb.reset();
+        assert!(!cb.is_tripped());
+        assert!(cb.check().is_ok());
     }
 }
