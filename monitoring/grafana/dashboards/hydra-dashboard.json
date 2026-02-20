@@ -1,0 +1,69 @@
+{
+  "title": "Hydra Bot v3 Dashboard",
+  "uid": "hydra-v3-main",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Signals Processed",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "hydra_signals_processed_total",
+          "legendFormat": "Signals"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Trades Executed",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "targets": [
+        {
+          "expr": "hydra_trades_executed_total",
+          "legendFormat": "Executed"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Daily P&L (SOL)",
+      "type": "gauge",
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "hydra_daily_pnl_sol",
+          "legendFormat": "P&L"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Circuit Breaker Trips",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "targets": [
+        {
+          "expr": "hydra_circuit_breaker_trips_total",
+          "legendFormat": "Trips"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "AI Request Duration",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "targets": [
+        {
+          "expr": "rate(hydra_ai_request_duration_seconds_sum[5m]) / rate(hydra_ai_request_duration_seconds_count[5m])",
+          "legendFormat": "Avg Duration"
+        }
+      ]
+    }
+  ]
+}
