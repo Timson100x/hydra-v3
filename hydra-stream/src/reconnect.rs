@@ -34,7 +34,11 @@ impl StreamReconnect {
     pub async fn wait(&mut self) {
         let current_attempt = self.attempt;
         let delay = self.next_backoff();
-        warn!(attempt = current_attempt, delay_ms = delay.as_millis(), "Stream reconnect backoff");
+        warn!(
+            attempt = current_attempt,
+            delay_ms = delay.as_millis(),
+            "Stream reconnect backoff"
+        );
         tokio::time::sleep(delay).await;
         info!("Stream reconnect attempting connection");
     }

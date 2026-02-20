@@ -5,8 +5,8 @@ use prometheus_client::{
     metrics::{counter::Counter, gauge::Gauge},
     registry::Registry,
 };
-use std::sync::{Arc, Mutex};
 use std::sync::atomic::AtomicU64;
+use std::sync::{Arc, Mutex};
 use tracing::info;
 
 #[derive(Clone)]
@@ -32,14 +32,46 @@ impl HydraMetrics {
         let circuit_breaker_trips: Counter = Counter::default();
         let signals_received: Counter = Counter::default();
 
-        registry.register("hydra_trades_total", "Total number of trades", trades_total.clone());
-        registry.register("hydra_trades_won", "Number of winning trades", trades_won.clone());
-        registry.register("hydra_trades_lost", "Number of losing trades", trades_lost.clone());
-        registry.register("hydra_open_positions", "Current open positions", open_positions.clone());
-        registry.register("hydra_daily_pnl_sol", "Daily P&L in SOL", daily_pnl_sol.clone());
-        registry.register("hydra_ai_score_requests", "Total AI score requests", ai_score_requests.clone());
-        registry.register("hydra_circuit_breaker_trips", "Circuit breaker trip count", circuit_breaker_trips.clone());
-        registry.register("hydra_signals_received", "Total signals received", signals_received.clone());
+        registry.register(
+            "hydra_trades_total",
+            "Total number of trades",
+            trades_total.clone(),
+        );
+        registry.register(
+            "hydra_trades_won",
+            "Number of winning trades",
+            trades_won.clone(),
+        );
+        registry.register(
+            "hydra_trades_lost",
+            "Number of losing trades",
+            trades_lost.clone(),
+        );
+        registry.register(
+            "hydra_open_positions",
+            "Current open positions",
+            open_positions.clone(),
+        );
+        registry.register(
+            "hydra_daily_pnl_sol",
+            "Daily P&L in SOL",
+            daily_pnl_sol.clone(),
+        );
+        registry.register(
+            "hydra_ai_score_requests",
+            "Total AI score requests",
+            ai_score_requests.clone(),
+        );
+        registry.register(
+            "hydra_circuit_breaker_trips",
+            "Circuit breaker trip count",
+            circuit_breaker_trips.clone(),
+        );
+        registry.register(
+            "hydra_signals_received",
+            "Total signals received",
+            signals_received.clone(),
+        );
 
         Self {
             trades_total,
