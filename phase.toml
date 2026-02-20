@@ -1,0 +1,23 @@
+[[phases]]
+name = "Phase 1: Discovery"
+description = "Initial token discovery and small position sizing"
+max_trades = 20
+max_position_sol = 0.5
+min_confidence = 0.75
+duration_hours = 24
+
+[[phases]]
+name = "Phase 2: Scaling"
+description = "Scale up positions with proven signals"
+max_trades = 50
+max_position_sol = 1.0
+min_confidence = 0.70
+duration_hours = 48
+
+[[phases]]
+name = "Phase 3: Harvest"
+description = "Maximize returns from established positions"
+max_trades = 100
+max_position_sol = 2.0
+min_confidence = 0.65
+duration_hours = 72

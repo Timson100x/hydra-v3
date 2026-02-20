@@ -1,0 +1,20 @@
+[network]
+rpc_url = "https://api.mainnet-beta.solana.com"
+wss_url = "wss://api.mainnet-beta.solana.com"
+commitment = "confirmed"
+
+[risk]
+max_position_size_sol = 1.0
+max_daily_loss_sol = 5.0
+circuit_breaker_threshold = 0.15
+min_liquidity_usd = 50000.0
+
+[ai]
+model = "deepseek-chat"
+max_tokens = 1024
+temperature = 0.1
+timeout_secs = 30
+
+[monitoring]
+prometheus_port = 9090
+alert_webhook_url = ""

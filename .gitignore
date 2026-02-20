@@ -1,0 +1,41 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Environment files - NEVER commit these
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Docker volumes
+postgres_data/
+redis_data/
+grafana_data/
+prometheus_data/
+
+# Coverage
+coverage/
+lcov.info
+
+# Temporary files
+/tmp/
+*.tmp
